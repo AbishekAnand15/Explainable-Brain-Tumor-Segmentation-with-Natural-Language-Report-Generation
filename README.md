@@ -31,6 +31,7 @@ Different MRI sequences (modalities) are crucial as each provides unique informa
 **Goal:** Combining all sequences gives the model a complete, multi-dimensional understanding of the tumor’s shape, location, and internal structure.
 
 ## 3. Pre-processing Pipeline  
+<img width="1322" height="521" alt="image" src="https://github.com/user-attachments/assets/46605e0a-a25e-4b93-9140-d0ddcd8e2dd8" />
 
 Before the MRI images are given to the model, they must be rigorously cleaned and standardized. This turns raw, messy MRI scans into uniform, machine-readable data.
 
@@ -40,12 +41,10 @@ Before the MRI images are given to the model, they must be rigorously cleaned an
 ## 4. Registration: Aligns all modalities (T1, T1ce, T2, FLAIR) slice-by-slice so they spatially match.
 ## 5. Patch Extraction: Breaks the large 3D scanned volume into smaller, manageable sections (patches) for the model to process efficiently.
 
-## 4. Segmentation Model: The U-Net Architecture  
+## 4. Segmentation Model: The U-Seg Net Architecture  
+<img width="1500" height="818" alt="image" src="https://github.com/user-attachments/assets/9fe1e82c-3478-460c-a5cc-1ab84729fde4" />
 
-The core of the system is a deep convolutional neural network, typically a **U-Net** or a Transformer-based U-Net, designed for pixel-wise/voxel-wise segmentation.
-
-
-
+The core of the system is a deep convolutional neural network, typically a **U-Seg Net** or a Transformer-based U-Net, designed for pixel-wise/voxel-wise segmentation.
 * **Encoder (Contracting Path):** Observes the input image and progressively extracts important, high-level features (e.g., "is this a tumor border?", "is this fluid?").
 * **Decoder (Expanding Path):** Uses the extracted features to reconstruct the tumor region at the original image resolution.
 * **Skip Connections:** Directly connect corresponding layers of the encoder and decoder. This is crucial for retaining **fine details** (like sharp tumor edges) that would otherwise be lost in the compression of the encoder.
@@ -80,6 +79,7 @@ The final output mask distinguishes between clinically relevant tumor sub-region
 * **Enhancing Tumor Regions** (ET)
 
 ## 7. Evaluation Metrics  
+<img width="1402" height="860" alt="image" src="https://github.com/user-attachments/assets/746ff692-f8d6-446f-8314-e4d214574b0d" />
 
 System reliability is proven by robust evaluation metrics.
 
@@ -104,6 +104,9 @@ Deep learning models are often "black boxes." XAI is crucial to show **why** the
 **Purpose:** XAI overlays help experts quickly verify that the model focused on meaningful, pathological tumor areas and not on background noise.
 
 ## 9. Natural Language Interpretation  
+<img width="1350" height="154" alt="image" src="https://github.com/user-attachments/assets/a9165607-3aa9-4cf0-8b2b-48253c53b8f4" />
+
+<img width="1351" height="213" alt="image" src="https://github.com/user-attachments/assets/21eb8f25-8376-44fc-b9a2-626bbcacde64" />
 
 The final step converts the quantitative findings into a qualitative, readable report.
 
