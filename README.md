@@ -6,101 +6,93 @@ This project implements a complete workflow for brain tumor segmentation using d
 
 ## 1. Overview
 
-This system takes MRI scans as input, segments tumor regions, explains the model’s reasoning using XAI methods, and generates a readable clinical-style report summarizing the findings.
-
-Main components:
-
-MRI preprocessing
-
-Deep learning segmentation model
-
-Explainable AI (Grad-CAM, IG, SHAP)
-
-Natural-Language Report Generator
+The workflow starts by taking MRI scans and preparing them so a model can properly understand the data.
+After preprocessing, the model identifies tumor regions.
+To make the decisions transparent, XAI techniques highlight which parts of the scan influenced the model.
+Finally, the system converts the findings into clear, readable medical-style text.
 
 ## 2. Methodology
 ### 2.1 Input Modalities
 
-The model uses standard MRI sequences:
+Different MRI sequences are used because each one reveals a different type of information.
+For example:
 
-T1
+T1 shows basic brain anatomy
 
-T1ce
+T1ce highlights contrast-enhancing tumor parts
 
-T2
+T2 shows fluid-based structures
 
-FLAIR
+FLAIR reveals edema (swelling)
 
-These provide complementary structural and contrast information about the brain and tumor regions.
+By combining all sequences, the model gets a complete understanding of the tumor’s shape and location.
 
 ## 3. Pre-processing Pipeline
-Key Steps
+Before the MRI images are given to the model, they must be cleaned and standardized.
 
-Resampling to ensure uniform voxel spacing
+Resampling: Ensures that all scans have the same voxel size, preventing scale differences.
 
-Skull-stripping to remove non-brain tissue
+Skull-stripping: Removes non-brain tissue so the model focuses only on useful regions.
 
-Intensity normalization using z-score scaling
+Normalization: Adjusts brightness levels so scans from different machines look similar.
 
-Registration (optional) to align multi-modal scans
+Registration: Aligns all modalities so they match slice-by-slice.
 
-Patch extraction or slicing to prepare model input
+Patch extraction: Breaks the scanned volume into smaller sections the model can handle easily.
 
-Goal: Convert raw MRI data into stable, standardized inputs suitable for deep learning.
+The goal is to turn raw, messy MRI scans into uniform, machine-readable data.
 
 ## 4. Segmentation Model
-Architecture
+The model used in this system is typically a U-Net or a Transformer-based U-Net.
 
-U-Net or Transformer-based U-Net
+The encoder observes the image and extracts important features.
 
-Encoder-decoder structure with skip connections
+The decoder uses those features to reconstruct the tumor region at the pixel/voxel level.
 
-Can be implemented in 2D or 3D depending on resources
+Skip connections help the model retain fine details like tumor edges.
 
-Concept
-
-The encoder extracts robust image features, while the decoder reconstructs voxel-level tumor predictions.
-
+Whether the model is 2D or 3D depends on available hardware and accuracy needs.
 ## 5. Training Strategy
-Loss Functions
+Training the model teaches it how to recognize tumor patterns.
 
-Dice Loss (overlap optimization)
+Dice Loss helps maximize overlap between predicted and real tumor regions.
 
-Cross-Entropy Loss
+Cross-Entropy Loss improves per-pixel classification.
 
-Composite Dice + CE for balanced learning
+Using both together balances accuracy and consistency.
 
-Training Enhancements
+To make the model generalize well:
 
-Random augmentations (flips, rotation, elastic distortions)
+Images are randomly flipped, rotated, or distorted.
 
-Learning rate scheduling
+Learning rate schedules adjust model learning smoothly.
 
-Mixed precision for performance
+Mixed precision speeds up training while saving memory.
 
-Checkpointing & early stopping
-
+Checkpointing keeps the best version of the model.
 ## 6. Inference Process
 
-Apply the same preprocessing to the test MRI
+Once the model is trained, it is ready to analyze new MRI scans.
 
-Run model to get probability maps
+The input image is preprocessed the same way as training.
 
-Threshold probability maps to obtain tumor masks
+The model predicts a probability for each voxel.
 
-Postprocess masks:
+Values above a threshold are considered tumor.
 
-Remove small noisy components
+Small isolated errors are removed.
 
-Smooth edges
+The final mask reveals the tumor outline clearly.
 
-Outputs
+The output includes:
 
 Whole tumor
 
 Tumor core
 
 Enhancing tumor regions
+
+Each region helps clinicians understand tumor behavior.
 
 ## 7. Evaluation Metrics
 Segmentation Accuracy
