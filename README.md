@@ -68,10 +68,10 @@ We combine loss functions to balance accuracy and consistency:
 
 Once trained, the model analyzes new, previously unseen MRI scans to produce the final segmentation mask.
 
-## 1. Input Preparation: The new image is preprocessed identically to the training data.
-## 2. Prediction: The model processes the data and predicts a probability value (0 to 1) for every voxel/pixel.
-## 3. Thresholding: Voxel probability values above a set threshold (e.g., 0.5) are converted into the final tumor/non-tumor binary mask.
-## 4. Post-processing: Small isolated errors or "speckles" are removed to clean the final mask.
+### 1. Input Preparation: The new image is preprocessed identically to the training data.
+### 2. Prediction: The model processes the data and predicts a probability value (0 to 1) for every voxel/pixel.
+### 3. Thresholding: Voxel probability values above a set threshold (e.g., 0.5) are converted into the final tumor/non-tumor binary mask.
+### 4. Post-processing: Small isolated errors or "speckles" are removed to clean the final mask.
 
 ### Output Tumor Regions
 The final output mask distinguishes between clinically relevant tumor sub-regions:
@@ -107,10 +107,10 @@ Deep learning models are often "black boxes." XAI is crucial to show **why** the
 
 The final step converts the quantitative findings into a qualitative, readable report.
 
-## 1. Extraction: Numerical metrics (Dice Score, Volume) and spatial details (e.g., "Right Frontal Lobe") are automatically extracted from the segmentation mask.
-## 2. XAI Summary: The system summarizes which regions were highlighted by the XAI methods (e.g., "strong focus on T1ce contrast").
-## 3. Generation: Findings are fed into a **template-based** or **transformer-based** (e.g., GPT) text generator.
-## 4. Output: A short, factual, medical-style paragraph is produced, often including a measure of prediction uncertainty.
+### 1. Extraction: Numerical metrics (Dice Score, Volume) and spatial details (e.g., "Right Frontal Lobe") are automatically extracted from the segmentation mask.
+### 2. XAI Summary: The system summarizes which regions were highlighted by the XAI methods (e.g., "strong focus on T1ce contrast").
+### 3. Generation: Findings are fed into a **template-based** or **transformer-based** (e.g., GPT) text generator.
+### 4. Output: A short, factual, medical-style paragraph is produced, often including a measure of prediction uncertainty.
 
 ## 10. Complete Pipeline  
 
